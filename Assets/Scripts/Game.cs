@@ -28,7 +28,6 @@ public class Game : MonoBehaviour
         if(equipe == 1)
         {
             _scoreEquipeUne += points;
-            
         }
         else
         {

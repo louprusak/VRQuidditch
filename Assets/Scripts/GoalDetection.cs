@@ -13,6 +13,8 @@ public class GoalDetection : MonoBehaviour
     {
         _partie = GameObject.Find("Partie");
         _scriptPartie = _partie.GetComponent<Game>();
+
+        //Faire en sorte que le but sache de quelle equipe il est
     }
 
     // Update is called once per frame
