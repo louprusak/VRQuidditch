@@ -19,13 +19,12 @@ public class Cognard : MonoBehaviour
     private float _rotaVitesse = 100f;
     private float _distCible = 5f;
     private float _vitesseMaxSuivi = 20f;
-    private const float _maxIdlePlayerTime = 10f;
+    private const float _maxIdlePlayerTime = 60f;
     private float _idlePlayerTimer = 0f;
     private float _hitLagTimer = 0f;
     
     void Start()
     {
-        Random.InitState(42);
         _monTrans = GetComponent<Transform>();
         //_player = GameObject.FindWithTag("MainCamera");
         _player = GameObject.FindWithTag("PlayerBody"); // Il faut tag BodyCollider et HeadCollider avec PlayerBody
@@ -49,8 +48,6 @@ public class Cognard : MonoBehaviour
             _dureeSmooth = 0.1f;
         }
 
-        Debug.Log("_idlePlayerTimer = " + _idlePlayerTimer + "\t _activOrbite = " + (_activOrbite ? "1" : "0") + "\t _distCible = " + _distCible + "\t _rotaVitesse = " + _rotaVitesse);
-
         _monTrans.position = Vector3.SmoothDamp(_monTrans.position, _ciblePos, ref _velocite, _dureeSmooth, _vitesseMaxSuivi);
         
         _rotaVitesse = 100f * (1 + (1.5f * _idlePlayerTimer / _maxIdlePlayerTime));
@@ -62,7 +59,8 @@ public class Cognard : MonoBehaviour
         _randomDirection.Normalize();
         _monTrans.RotateAround(_playerPos, _randomDirection, _rotaVitesse * Time.deltaTime);
         //Debug.DrawLine(_playerPos, _randomDirection + _playerPos);
-        //Debug.Log("_distCible : " + _distCible + "\nDistance : " + Vector3.Distance(_monTrans.position, _playerPos));
+        //Debug.DrawLine(_playerPos, _monTrans.position);
+        //Debug.Log("_idlePlayerTimer = " + _idlePlayerTimer + "\t _activOrbite = " + (_activOrbite ? "1" : "0") + "\t _distCible = " + _distCible + "\t _rotaVitesse = " + _rotaVitesse + "\t distance = " + Vector3.Distance(_monTrans.position, _playerPos) + "\t distance à cible = " + Vector3.Distance(_monTrans.position, _ciblePos) + "\t _hitLagTimer = " + _hitLagTimer);
     }
 
     void Update()
@@ -79,7 +77,10 @@ public class Cognard : MonoBehaviour
             else
             {
                 // Si non, on regarde si le joueur a dépassé la limite d'inactivité
-                if ((_idlePlayerTimer > _maxIdlePlayerTime)) _activOrbite = false; // Si oui, le cognard le pourchasse
+                if ((_idlePlayerTimer > _maxIdlePlayerTime) && _activOrbite) {
+                    _activOrbite = false; // Si oui, le cognard le pourchasse
+                    Debug.Log("À l'attaque !");
+                }
                 else if (_activOrbite) _idlePlayerTimer += Time.deltaTime; // Si non, on compte la durée de l'inactivité
             }
         }
