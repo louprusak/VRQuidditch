@@ -42,18 +42,21 @@ public class Cognard : MonoBehaviour
         _dirDepuisJoueur = _monTrans.position - _playerPos;
         _dirDepuisJoueur.Normalize();
         _ciblePos = _playerPos + (_dirDepuisJoueur) * _distCible;
-        // _randomDirection = Quaternion.Euler(Random.Range(-_rotaRandAmp, _rotaRandAmp), Random.Range(-_rotaRandAmp, _rotaRandAmp), Random.Range(-_rotaRandAmp, _rotaRandAmp)) * _randomDirection;
-        _randomDirection += new Vector3(Random.Range(-_rotaRandAmp, _rotaRandAmp), Random.Range(-_rotaRandAmp, _rotaRandAmp), Random.Range(-_rotaRandAmp, _rotaRandAmp));
+        float randomDirDeltaX = Random.Range(-_rotaRandAmp, _rotaRandAmp);
+        float randomDirDeltaY = Random.Range(-_rotaRandAmp, _rotaRandAmp);
+        float randomDirDeltaZ = Random.Range(-_rotaRandAmp, _rotaRandAmp);
+        //_randomDirection = Quaternion.Euler(randomDirDeltaX, randomDirDeltaY, randomDirDeltaZ) * _randomDirection;
+        _randomDirection += new Vector3(randomDirDeltaX, randomDirDeltaY, randomDirDeltaZ);
         _randomDirection.Normalize();
         _monTrans.RotateAround(_playerPos, _randomDirection, _rotaVitesse * Time.deltaTime);
-        Debug.DrawLine(_playerPos, _randomDirection + _playerPos);
-        Debug.Log("_distCible : " + _distCible + "\nDistance : " + Vector3.Distance(_monTrans.position, _playerPos));
+        //Debug.DrawLine(_playerPos, _randomDirection + _playerPos);
+        //Debug.Log("_distCible : " + _distCible + "\nDistance : " + Vector3.Distance(_monTrans.position, _playerPos));
         _monTrans.position = Vector3.SmoothDamp(_monTrans.position, _ciblePos, ref _velocite, _dureeSmooth, _vitesseMaxSuivi);
     }
 
-    void OnTriggerEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("MainCamera"))
+        if (other.CompareTag("MainCamera"))
         {
             _activOrbite = true;
         }
