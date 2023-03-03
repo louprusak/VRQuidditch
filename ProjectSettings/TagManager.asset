@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ButGauche
   - ButDroite
+  - PlayerBody
   layers:
   - Default
   - TransparentFX
