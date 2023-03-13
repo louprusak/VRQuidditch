@@ -19,9 +19,13 @@ MonoBehaviour:
   InitializationType: 1
   EditorAppKey: application.generated.unity.projetquidditch.exe
 <<<<<<< HEAD
+<<<<<<< HEAD
   ActionManifestFileRelativeFilePath: StreamingAssets\SteamVR\actions.json
 =======
   ActionManifestFileRelativeFilePath: StreamingAssets/SteamVR/actions.json
 >>>>>>> 78342d93673bfedd2923cea334762e7e03e0856d
+=======
+  ActionManifestFileRelativeFilePath: StreamingAssets\SteamVR\actions.json
+>>>>>>> test
   MirrorView: 2
   HasCopiedDefaults: 0

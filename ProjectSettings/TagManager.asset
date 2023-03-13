@@ -7,6 +7,8 @@ TagManager:
   - ButGauche
   - ButDroite
   - PlayerBody
+  - projectile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - player
   - 
   - 
   - 
