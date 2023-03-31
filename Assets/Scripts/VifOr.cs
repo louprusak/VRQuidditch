@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class VifOr : MonoBehaviour
 {
+
+
     private GameObject _player;
     private Transform _playerTrans;
     private Vector3 _playerPos;
@@ -24,6 +26,7 @@ public class VifOr : MonoBehaviour
         _monTrans = GetComponent<Transform>();
         _player = GameObject.FindWithTag("PlayerBody"); // Il faut tag BodyCollider et HeadCollider avec PlayerBody
         _playerTrans = _player.GetComponent<Transform>();
+        
     }
 
     void FixedUpdate()
@@ -52,8 +55,7 @@ public class VifOr : MonoBehaviour
 
         _ciblePos = _monTrans.position + _randomDirection * _vitesse;
         _monTrans.position = Vector3.SmoothDamp(_monTrans.position, _ciblePos, ref _velocite, _dureeSmooth, 50f);
-        Debug.Log("Vitesse = " + _vitesse + "\t Position = " + _monTrans.position.x + " " + _monTrans.position.y + " " + _monTrans.position.z);
-        Debug.Log("_randomDirection = " + _randomDirection.x + " " + _randomDirection.y + " " + _randomDirection.z);
+     
     }
     
     void OnCollisionEnter(Collision other)
@@ -63,4 +65,11 @@ public class VifOr : MonoBehaviour
             Debug.Log(other.gameObject.ToString());
         }
     }
+
+
+    public void destroy()
+    {
+        gameObject.SetActive(false);   
+    }
+
 }

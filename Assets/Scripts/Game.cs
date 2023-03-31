@@ -16,6 +16,13 @@ public class Game : MonoBehaviour
     public GameObject _scoreboardEquipe1_2;
     public GameObject _scoreboardEquipe2_1;
     public GameObject _scoreboardEquipe2_2;
+
+    public GameObject _spawnPlayer;
+    public GameObject _player;
+
+    public GameObject _spawnSouafle;
+    public GameObject _souafle;
+
     TMP_Text _scoreboardTextEquipe1_1;
     TMP_Text _scoreboardTextEquipe1_2;
     TMP_Text _scoreboardTextEquipe2_1;
@@ -83,5 +90,14 @@ public class Game : MonoBehaviour
         }
         Debug.Log("Equipe " + equipe + "gagne " + points + " points !");
         Debug.Log("Le score est maintenant de : " + _scoreEquipeUne + " : " + _scoreEquipeDeux);
+
+        _player.GetComponent<Transform>().position = _spawnPlayer.GetComponent<Transform>().position;
+        _souafle.GetComponent<Transform>().position = _spawnSouafle.GetComponent<Transform>().position;
+
+    }
+
+    public void getVifOr()
+    {
+        _scoreEquipeUne += 150;
     }
 }

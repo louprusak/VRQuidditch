@@ -14,9 +14,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject milieu;
     private Transform milieuTransform;
 
-    public float coefVitesse = 0.1f;
-    public float vertVitesse = 1f;
-    public float limite = 1f;
+    public float coefVitesseHor = 0.8f;
+    public float coefVitesseVert= 0.8f;
+    public float limiteHor = 1f;
+    public float limiteVert = 1f;
 
     public SteamVR_Action_Vector2 touchpadInput;
 
@@ -32,11 +33,20 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distMainTete = Vector3.Distance(mainTransform.position, milieuTransform.position);
-        float vitesse = 0;
-        if (distMainTete > limite)
-            vitesse = coefVitesse * (distMainTete - limite);
+        float distMainTeteHor = Vector3.Distance(new Vector3(mainTransform.position.x, 0, mainTransform.position.z), new Vector3(milieuTransform.position.x,0, milieuTransform.position.z));
+        float distMainTeteVert = mainTransform.position.y - milieuTransform.position.y;
+        float vitesseHor = 0;
+        float vitesseVert = 0;
 
+        if (Mathf.Abs(distMainTeteHor) > limiteHor)
+        {
+            vitesseHor = coefVitesseHor * (distMainTeteHor - limiteHor) * Time.deltaTime;
+        }
+        if (Mathf.Abs(distMainTeteVert) > limiteVert)
+        {
+            vitesseVert = coefVitesseVert * (distMainTeteVert - limiteVert) * Time.deltaTime;
+        }
+            
         //Horizontal
 
         Vector3 delta = mainTransform.position - milieuTransform.position;
@@ -44,12 +54,7 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = look.eulerAngles.y;
         float vertical = look.eulerAngles.x;
 
-        monTransform.Translate( new Vector3(Mathf.Sin(Mathf.Deg2Rad *horizontal), -Mathf.Sin(Mathf.Deg2Rad * vertical) * vitesse, Mathf.Cos(Mathf.Deg2Rad *horizontal)) * vitesse );
+        monTransform.Translate( new Vector3(Mathf.Sin(Mathf.Deg2Rad *horizontal)* vitesseHor,  vitesseVert, Mathf.Cos(Mathf.Deg2Rad *horizontal)) * vitesseHor);
 
-
-        //Vertical
-
-        //float value = Input.GetAxis("Vertical");
-        //monTransform.Translate(new Vector3(0,  -vitesse * touchpadInput.axis.y* vertVitesse,0));
     }
 }
